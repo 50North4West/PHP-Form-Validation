@@ -19,28 +19,25 @@ GPL v2 http://www.gnu.org/licenses/gpl-2.0.txt
     $valid->name('birthdate')->date('please enter date in YYYY-MM-DD format');
     if ($valid->isGroupValid()) echo 'Validation Passed!';
 ```
-```
  **OR:**
+```
     include 'Validate.php';
     $valid = new Validate($_POST); //or $_FILES
-  	if ( $valid->name('user_name')->required('You must chose a user name!')->alfa()->minSize(5)
-  		    ->name('user_email')->required()->email()
-  		    ->name('birthdate')->date('please enter date in YYYY-MM-DD format')
-  		    ->isGroupValid() )
+  	if (
+        $valid->name('user_name')->required('You must chose a user name!')->alfa()->minSize(5)
+  		  ->name('user_email')->required()->email()
+  		  ->name('birthdate')->date('please enter date in YYYY-MM-DD format')
+  		  ->isGroupValid()
+       )
   	    echo 'Validation passed!';
 ```
 
   **On HTML Form:**
+```
   <form method="POST">
-
-  	    <input type="text"   name="email"
-  		   value="<?php echo $valid->getValue('email'); ?>" />
-  	    <span class="error">
-  		<?php echo $valid->getError('email'); ?>
-  	    </span>
-
-
-
+  	<input type="text" name="email" value="<?php echo $valid->getValue('email'); ?>" />
+  	<span class="error"><?php echo $valid->getError('email'); ?></span>
+```
 
 #  To create new validation rules!
 

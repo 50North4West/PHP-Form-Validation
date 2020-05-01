@@ -3,7 +3,8 @@ Fluent Validation Class
  A simple, flexible and easy to use PHP form validation class using fluent methodologies
 
 
-**Note:** index.php  has a typical examples; 2020 Update: I have updated the original code to better represent current best practices regarding validation; using filter_validate etc.
+**Note:** index.php  has a typical examples.<br>
+2020 Update: I have updated the original code to better represent current best practices regarding validation; using filter_validate etc. I have also added the ability to use this class to validate uploaded files. 
 
 **License:**
 
@@ -17,6 +18,7 @@ GPL v2 http://www.gnu.org/licenses/gpl-2.0.txt
     $valid->name('user_name')->required('You must chose a user name!')->alfa()->minSize(5);
     $valid->name('user_email')->required()->email();
     $valid->name('birthdate')->date('please enter date in YYYY-MM-DD format');
+    $valid->filename('fileToUpload')->fileSize(500000)->fileType(array('image/jpeg', 'image/gif'))
     if ($valid->isGroupValid()) echo 'Validation Passed!';
 ```
 
@@ -53,7 +55,7 @@ GPL v2 http://www.gnu.org/licenses/gpl-2.0.txt
 ```
     $Valid->name('testing')->myValidation(10, 'some error msg!');
 ```
-#  To create new validation rules for POST DATA!
+#  To create new validation rules for FILES DATA!
 
 **1- define default error message**
 ```

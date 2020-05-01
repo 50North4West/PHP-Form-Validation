@@ -138,6 +138,15 @@
         $this->currentObject->error = $errorMsg;
     }
 
+    //set the error message - 'custom error message', 'default message', 'extra parameter to default message'
+    private function setFileErrorMsg($errorMsg, $default, $params = null) {
+      $this->isGroupValid = false;
+      if ($errorMsg == '') {
+        $this->currentFileObject->error = sprintf($default, $params);
+      } else
+        $this->currentFileObject->error = $errorMsg;
+    }
+
 
     //validation functions
 
@@ -152,7 +161,7 @@
         return $this;
     }
 
-    function file($name) {
+    function fileName($name) {
       if (!isset($this->validFileObjects[$name]))
         $this->validFileObjects[$name] = new validateObject('');
         $this->isValid = true;
@@ -327,12 +336,10 @@
 
     //used to check the filesize of an upload
     function fileSize($size, $errorMsg = null) {
-    //  echo '<br />I am being called<br />';
-    //  print_r($this->currentObject);
-      if ($this->isValid && (!empty($this->currentFileObject->value))) {
+      if ($this->isValid && (!empty($this->currentFileObject->filename))) {
         $this->isValid = ($this->currentFileObject->size < $size) ? true : false;
         if (!$this->isValid)
-          $this->setErrorMsg($errorMsg, self::$error_fileSize);
+          $this->setFileErrorMsg($errorMsg, self::$error_fileSize);
       }
       return $this;
     }

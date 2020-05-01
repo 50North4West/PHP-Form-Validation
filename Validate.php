@@ -65,19 +65,23 @@
     private static $error_equal = 'Fields did not match';
     private static $error_regex = 'Please choose a valid value';
     private static $error_fileSize = 'The file size is too big';
+    private static $error_fileType = 'The file is the wrong format';
 
     //regex's
     private $pattern_alpha = '/^(\d|\-|_|\.| |(\p{L}\p{M}*))+$/u';
     private $pattern_text = '/^( |(\p{L}\p{M}*)+$/u';
 
 
-    function __construct($data) {
-      foreach ($data as $key => $value) {
-        if (is_array($value)) {
-          $this->validFileObjects[$key] = new validateFileObject($value['name'], $value['type'], $value['tmp_name'], $value['error'], $value['size']);
-        } else {
-          $this->validObjects[$key] = new validateObject(trim($value));
+    function __construct($post, $files = null) {
+      if ($files) {
+        foreach ($files as $fileKey => $fileValue) {
+          $this->validFileObjects[$fileKey] = new validateFileObject($fileValue['name'], $fileValue['type'], $fileValue['tmp_name'], $fileValue['error'], $fileValue['size']);
         }
+      }
+
+
+      foreach ($post as $key => $value) {
+          $this->validObjects[$key] = new validateObject(trim($value));
       }
     }
 
@@ -171,6 +175,9 @@
         return $this;
     }
 
+    //used to set a pointer for the current validation object, if $name doesn't exist it will be created with an empty value
+    //validation will always pass on empty, not required fields
+    //name is supplied in an array format $fileName=>'user_name'
     function fileName($name) {
       if (!isset($this->validFileObjects[$name]))
         $this->validFileObjects[$name] = new validateObject('');
@@ -344,12 +351,25 @@
     }
 
 
-    //used to check the filesize of an upload
+    //used to check the filesize of an upload - ->fileSize(5000000)
     function fileSize($size, $errorMsg = null) {
       if ($this->isValid && (!empty($this->currentFileObject->filename))) {
         $this->isValid = ($this->currentFileObject->size < $size) ? true : false;
         if (!$this->isValid)
           $this->setFileErrorMsg($errorMsg, self::$error_fileSize);
+      }
+      return $this;
+    }
+
+
+    //used to check the the file type is allowed - ->fileType(array('image/jpeg', 'image/gif'))
+    function fileType($allowedTypes, $errorMsg = null) {
+      if ($this->isValid && (!empty($this->currentFileObject->filename))) {
+        $finfo = new finfo();
+        $fileMimeType = $finfo->file($this->currentFileObject->tmpName, FILEINFO_MIME_TYPE);
+        $this->isValid = (in_array($fileMimeType, $allowedTypes)) ? true : false;
+        if (!$this->isValid)
+          $this->setFileErrorMsg($errorMsg, self::$error_fileType);
       }
       return $this;
     }

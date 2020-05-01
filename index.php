@@ -1,11 +1,11 @@
 <?php
-include 'validFluent.php';
+include 'Validate.php';
 
 
 if (empty($_POST))
     {
     // setting some start values
-    $vf = new ValidFluent(array());
+    $vf = new Validate(array());
     $vf->name('userName')
 	    ->setValue('legolas')
 	    ->setError('ooopps, name already in use!');
@@ -15,7 +15,7 @@ if (empty($_POST))
 else
     {
     //validate $_POST data
-    $vf = new ValidFluent($_POST);
+    $vf = new Validate($_POST, $_FILES);
 
     $vf->name('email')
 	    ->required('you need to type someting here')
@@ -28,7 +28,7 @@ else
 
 //can also be used like this....
     if ($vf->name('userName')
-	    ->alfa()
+	    ->alpha()
 	    ->minSize(3)
 	    ->maxSize(12)
 
@@ -38,7 +38,7 @@ else
 	    ->name('password1')
 	    ->required()
 	    ->minSize(3)
-	    ->alfa()
+	    ->alpha()
 
 	    ->name('password2')
 	    ->required()

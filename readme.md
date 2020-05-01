@@ -6,8 +6,7 @@
 
 **Note:** index.php  has a typical examples; I have updated the original code to better represent current best practices regarding validation; using filter_validate etc. I am in the process of trying to build in file validation as well.
 
-@author Andre Soares  andsoa77@gmail.com
-@author Matthew Barraud  matt@yachtmanager.co.uk
+@Original author Andre Soares  andsoa77@gmail.com
 
 **License:**
 

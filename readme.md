@@ -19,34 +19,22 @@ GPL v2 http://www.gnu.org/licenses/gpl-2.0.txt
     $valid->name('birthdate')->date('please enter date in YYYY-MM-DD format');
     if ($valid->isGroupValid()) echo 'Validation Passed!';
 ```
- **OR:**
-```
-    include 'Validate.php';
-    $valid = new Validate($_POST, $_FILES);
-  	if (
-        $valid->name('user_name')->required('You must chose a user name!')->alfa()->minSize(5)
-  		  ->name('user_email')->required()->email()
-  		  ->name('birthdate')->date('please enter date in YYYY-MM-DD format')
-  		  ->isGroupValid()
-       )
-  	    echo 'Validation passed!';
-```
 
   **On HTML Form:**
 ```
-  <form method="POST">
+  <form method="POST" enctype="multipart/form-data">
   	<input type="text" name="email" value="<?php echo $valid->getValue('email'); ?>" />
   	<span class="error"><?php echo $valid->getError('email'); ?></span>
 ```
 
-#  To create new validation rules!
+#  To create new validation rules for POST DATA!
 
 **1- define default error message**
-
-    private static $error_myValidaton = 'my default error message';
-
+```
+  private static $error_myValidaton = 'my default error message';
+```
 **2- create new validation function**
-
+```
     function myValidation($param , $errorMsg=NULL)
       {
       if ($this->isValid && (! empty($this->currentObj->value)))
@@ -60,7 +48,34 @@ GPL v2 http://www.gnu.org/licenses/gpl-2.0.txt
     	}
       return $this;
       }
-
+```
 **3- use it**
-
+```
     $Valid->name('testing')->myValidation(10, 'some error msg!');
+```
+#  To create new validation rules for POST DATA!
+
+**1- define default error message**
+```
+    private static $error_myValidaton = 'my default error message';
+```
+**2- create new validation function**
+```
+    function myValidation($param , $errorMsg=NULL)
+      {
+      if ($this->isValid && (! empty($this->currentFileObject->value)))
+	    {
+	    	//
+	    	//code to check if validation pass
+	    	//
+	   	$this->isValid = // TRUE or FALSE ;
+		if (! $this->isValid)
+		$this->setFileErrorMsg($errorMsg, self::$error_myValidation, $param);
+    	}
+      return $this;
+      }
+```
+**3- use it**
+```
+    $Valid->name('testing')->myValidation(10, 'some error msg!');
+```

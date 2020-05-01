@@ -11,16 +11,16 @@ GPL v2 http://www.gnu.org/licenses/gpl-2.0.txt
 
 
 **typical use:**
-
-    $valid = new ValidFluent($_POST);
+    include 'Validate.php';
+    $valid = new Validate($_POST); //or $_FILES
     $valid->name('user_name')->required('You must chose a user name!')->alfa()->minSize(5);
     $valid->name('user_email')->required()->email();
     $valid->name('birthdate')->date('please enter date in YYYY-MM-DD format');
     if ($valid->isGroupValid()) echo 'Validation Passed!';
 
  **OR:**
-
-    $valid = new ValidFluent($_POST);
+    include 'Validate.php';
+    $valid = new Validate($_POST); //or $_FILES
   	if ( $valid->name('user_name')->required('You must chose a user name!')->alfa()->minSize(5)
   		    ->name('user_email')->required()->email()
   		    ->name('birthdate')->date('please enter date in YYYY-MM-DD format')

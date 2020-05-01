@@ -18,6 +18,7 @@ GPL v2 http://www.gnu.org/licenses/gpl-2.0.txt
     $valid->name('user_name')->required('You must chose a user name!')->alfa()->minSize(5);
     $valid->name('user_email')->required()->email();
     $valid->name('birthdate')->date('please enter date in YYYY-MM-DD format');
+    $valid->filename('fileToUpload')->fileSize(500000)->fileType(array('image/jpeg', 'image/gif'))
     if ($valid->isGroupValid()) echo 'Validation Passed!';
 ```
 

@@ -53,7 +53,7 @@ GPL v2 http://www.gnu.org/licenses/gpl-2.0.txt
 ```
     $Valid->name('testing')->myValidation(10, 'some error msg!');
 ```
-#  To create new validation rules for POST DATA!
+#  To create new validation rules for FILES DATA!
 
 **1- define default error message**
 ```

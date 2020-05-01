@@ -18,6 +18,24 @@
     }
   }//end validate object class
 
+  //Helper class
+  class validateFileObject {
+    public $filename;
+    public $type;
+    public $tmp_name;
+    public $uploadError;
+    public $size;
+    public $error;
+    function __construct($filename, $type, $tmp_name, $uploadError, $size) {
+      $this->filename = $filename;
+      $this->type = $type;
+      $this->tmpName = $tmp_name;
+      $this->uploadError = $uploadError;
+      $this->size = $size;
+      $this->error = '';
+    }
+  }//end validate file object class
+
 
   //main Validate class
   class Validate {
@@ -25,7 +43,9 @@
     public $isValid = true;
     public $isGroupValid = true;
     public $validObjects; //array
+    public $validFileObject; //array
     public $currentObject; //pointer to the current object as set by ->name()
+    public $currentFileObject;
 
 
     //default error messages
@@ -53,10 +73,8 @@
 
     function __construct($data) {
       foreach ($data as $key => $value) {
-        echo 'Key = '.$key.'<br />';
-        echo 'Value = '.print_r($value).'<br />';
         if (is_array($value)) {
-          $this->validObjects[$key] = new validateObject($value['size']);
+          $this->validFileObjects[$key] = new validateFileObject($value['name'], $value['type'], $value['tmp_name'], $value['error'], $value['size']);
         } else {
           $this->validObjects[$key] = new validateObject(trim($value));
         }
@@ -131,6 +149,14 @@
         $this->validObjects[$name] = new validateObject('');
         $this->isValid = true;
         $this->currentObject = &$this->validObjects[$name];
+        return $this;
+    }
+
+    function file($name) {
+      if (!isset($this->validFileObjects[$name]))
+        $this->validFileObjects[$name] = new validateObject('');
+        $this->isValid = true;
+        $this->currentFileObject = &$this->validFileObjects[$name];
         return $this;
     }
 
@@ -303,8 +329,8 @@
     function fileSize($size, $errorMsg = null) {
     //  echo '<br />I am being called<br />';
     //  print_r($this->currentObject);
-      if ($this->isValid && (!empty($this->currentObject->value))) {
-        $this->isValid = ($this->currentObject->value < $size) ? true : false;
+      if ($this->isValid && (!empty($this->currentFileObject->value))) {
+        $this->isValid = ($this->currentFileObject->size < $size) ? true : false;
         if (!$this->isValid)
           $this->setErrorMsg($errorMsg, self::$error_fileSize);
       }

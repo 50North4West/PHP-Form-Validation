@@ -43,7 +43,7 @@
     public $isValid = true;
     public $isGroupValid = true;
     public $validObjects; //array
-    public $validFileObject; //array
+    public $validFileObjects; //array
     public $currentObject; //pointer to the current object as set by ->name()
     public $currentFileObject;
 
@@ -102,6 +102,15 @@
       }
     }
 
+    //return the file upload field's validation error
+    function getFileError($name) {
+      if (isset($this->validFileObjects[$name])) {
+        return $this->validFileObjects[$name]->error;
+      } else {
+        return '';
+      }
+    }
+
 
     //return the field's value
     function getValue($name) {
@@ -137,6 +146,7 @@
       } else
         $this->currentObject->error = $errorMsg;
     }
+
 
     //set the error message - 'custom error message', 'default message', 'extra parameter to default message'
     private function setFileErrorMsg($errorMsg, $default, $params = null) {

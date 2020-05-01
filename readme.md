@@ -1,12 +1,9 @@
- ValidFluent
+Fluent Validation Class
 ======
- A simple, flexible and easy to use PHP form validation class
- (uses a fluent interface )
+ A simple, flexible and easy to use PHP form validation class using fluent methodologies
 
 
-**Note:** index.php  has a typical examples; I have updated the original code to better represent current best practices regarding validation; using filter_validate etc. I am in the process of trying to build in file validation as well.
-
-@Original author Andre Soares  andsoa77@gmail.com
+**Note:** index.php  has a typical examples; 2020 Update: I have updated the original code to better represent current best practices regarding validation; using filter_validate etc.
 
 **License:**
 

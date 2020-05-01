@@ -13,7 +13,7 @@ GPL v2 http://www.gnu.org/licenses/gpl-2.0.txt
 **typical use:**
 ```
     include 'Validate.php';
-    $valid = new Validate($_POST); //or $_FILES
+    $valid = new Validate($_POST, $_FILES);
     $valid->name('user_name')->required('You must chose a user name!')->alfa()->minSize(5);
     $valid->name('user_email')->required()->email();
     $valid->name('birthdate')->date('please enter date in YYYY-MM-DD format');
@@ -22,7 +22,7 @@ GPL v2 http://www.gnu.org/licenses/gpl-2.0.txt
  **OR:**
 ```
     include 'Validate.php';
-    $valid = new Validate($_POST); //or $_FILES
+    $valid = new Validate($_POST, $_FILES);
   	if (
         $valid->name('user_name')->required('You must chose a user name!')->alfa()->minSize(5)
   		  ->name('user_email')->required()->email()

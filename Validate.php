@@ -2,10 +2,13 @@
 
   /**
   *       Validation class
-  *       Forked from ValidFluent written by Andre Soares (andsoa77@gmail.com) found at https://github.com/ASoares/PHP-Form-Validation
+  *       Forked from ValidFluent written by Andre Soares
+  *       This version found at https://github.com/50North4West/PHP-Form-Validation
   *       Changes to original class include:
+  *         • Renamed to Validate
   *         • Use of filter_var instead of regex for some checks
   *         • Inclusion of file validation
+  *         • Add PSR2 Coding Standard
   **/
 
   //Helper class

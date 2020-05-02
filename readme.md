@@ -1,71 +1,15 @@
- ValidFluent
+Validation Class
 ======
- A simple, flexible and easy to use PHP form validation class
-  (uses a fluent interface ) 
+A simple, flexible and easy to use PHP form validation class using fluent methodologies. Fluent design allows you to chain method calls, which results in less typed
+characters when applying multiple operations on the same object. The validator has been forked from the original written by Andre Soares and found at
+<a href="https://github.com/ASoares/PHP-Form-Validation">https://github.com/ASoares/PHP-Form-Validation</a>. This updated version is maintained by 50North 4West and can be
+found at <a href="https://github.com/50North4West/PHP-Form-Validation">https://github.com/50North4West/PHP-Form-Validation</a>. This new version follows the PSR-2 Coding Standard,
+uses PHP's native FILTER_VALIDATE_XXXX wherever possible and validates file uploads.
 
 
-**Note:** index.php  has a typical example ,  if anyone decides to use this , please double check the spelling on error messages ;-)
+**Note:** index.php  has a examples and instructions for use.<br>
 
-@author Andre Soares  andsoa77@gmail.com
 
 **License:**
 
 GPL v2 http://www.gnu.org/licenses/gpl-2.0.txt
-
-
-**typical use:**
-
-    $valid = new ValidFluent($_POST); 
-    $valid->name('user_name')->required('You must chose a user name!')->alfa()->minSize(5);
-    $valid->name('user_email')->required()->email();
-    $valid->name('birthdate')->date('please enter date in YYYY-MM-DD format');
-    if ($valid->isGroupValid()) echo 'Validation Passed!';
-
- **OR:**
- 
-    $valid = new ValidFluent($_POST);
-  	if ( $valid->name('user_name')->required('You must chose a user name!')->alfa()->minSize(5)
-  		    ->name('user_email')->required()->email()
-  		    ->name('birthdate')->date('please enter date in YYYY-MM-DD format')
-  		    ->isGroupValid() )
-  	    echo 'Validation passed!';
-
-
-  **On HTML Form:**
-  <form method="POST">
-
-  	    <input type="text"   name="email"
-  		   value="<?php echo $valid->getValue('email'); ?>" />
-  	    <span class="error">
-  		<?php echo $valid->getError('email'); ?>
-  	    </span>
-
-
-
-
-#  To create new validation rules!
-
-**1- define default error message**
-
-    private static $error_myValidaton = 'my default error message';
-
-**2- create new validation function**
-
-    function myValidation($param , $errorMsg=NULL)
-      {
-      if ($this->isValid && (! empty($this->currentObj->value)))
-	    {
-	    	//
-	    	//code to check if validation pass
-	    	//
-	   	$this->isValid = // TRUE or FALSE ;
-		if (! $this->isValid)
-		$this->setErrorMsg($errorMsg, self::$error_myValidation, $param);
-    	}
-      return $this;
-      }
-
-**3- use it**
-
-    $Valid->name('testing')->myValidation(10, 'some error msg!');
- 

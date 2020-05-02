@@ -13,3 +13,9 @@ uses PHP's native FILTER_VALIDATE_XXXX wherever possible and validates file uplo
 **License:**
 
 GPL v2 http://www.gnu.org/licenses/gpl-2.0.txt
+
+**Change Log:**
+
+1.0: Updated initial version
+
+1.1: Change to the Alpha & Text only validations - removed regex's and changed to PHP native functions ctype_alnum & ctype_alpha.

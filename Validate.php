@@ -29,7 +29,7 @@
   class validateFileObject
   {
 
-    public $filename;
+    public $fileName;
     public $type;
     public $tmp_name;
     public $uploadError;
@@ -38,7 +38,7 @@
 
     function __construct($filename, $type, $tmp_name, $uploadError, $size)
     {
-      $this->filename = $filename;
+      $this->fileName = $filename;
       $this->type = $type;
       $this->tmpName = $tmp_name;
       $this->uploadError = $uploadError;
@@ -425,7 +425,7 @@
     //used to check the filesize of an upload - ->fileSize(5000000)
     function fileSize($size, $errorMsg = null)
     {
-      if ($this->isValid && (!empty($this->currentFileObject->filename))) {
+      if ($this->isValid && (!empty($this->currentFileObject->fileName))) {
         $this->isValid = ($this->currentFileObject->size < $size) ? true : false;
 
         if (!$this->isValid) {
@@ -439,11 +439,11 @@
     //used to check the the file type is allowed - ->fileType(array('image/jpeg', 'image/gif'))
     function fileType($allowedTypes, $errorMsg = null)
     {
-      if ($this->isValid && (!empty($this->currentFileObject->filename))) {
+      if ($this->isValid && (!empty($this->currentFileObject->fileName))) {
         $finfo = new finfo();
         $fileMimeType = $finfo->file($this->currentFileObject->tmpName, FILEINFO_MIME_TYPE);
         $this->isValid = (in_array($fileMimeType, $allowedTypes)) ? true : false;
-        
+
         if (!$this->isValid) {
           $this->setFileErrorMsg($errorMsg, self::$error_fileType);
         }

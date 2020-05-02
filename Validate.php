@@ -316,7 +316,7 @@
     function text($errorMsg = null)
     {
       if ($this->isValid && (!empty($this->currentObject->value))) {
-        $this->isValid = (preg_match($this->pattern_text, $this->currentObject->value)) ? true : false;
+        $this->isValid = (ctype_alpha($this->currentObject->value)) ? true : false;
 
         if (!$this->isValid) {
           $this->setErrorMsg($errorMsg, self::$error_text);
@@ -330,7 +330,7 @@
     function alpha($errorMsg = null)
     {
       if ($this->isValid && (!empty($this->currentObject->value))) {
-        $this->isValid = (preg_match($this->pattern_alpha, $this->currentObject->value)) ? true : false;
+        $this->isValid = (ctype_alnum($this->currentObject->value)) ? true : false;
 
         if (!$this->isValid) {
           $this->setErrorMsg($errorMsg, self::$error_alpha);

@@ -200,6 +200,9 @@
                   Date: <code>->date('Y-m-d', 'custom error message')</code>
                 </li>
                 <li>
+                  Time: <code>->date('H:i:s', 'custom error message')</code>
+                </li>
+                <li>
                   Email: <code>->email('custom error message')</code>
                 </li>
                 <li>

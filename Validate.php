@@ -63,6 +63,7 @@
     //default error messages
     private static $error_required = 'This field is required';
     private static $error_date = 'Please enter a date in the YYYY-MM-DD format';
+    private static $error_time = 'Please enter a time in the HH-MM-SS format';
     private static $error_email = 'Please enter a valid email';
     private static $error_url = 'Please enter a valid url';
     private static $error_alfa = 'Only letters and numbers are permited';
@@ -234,6 +235,20 @@
 
         if (!$this->isValid) {
           $this->setErrorMsg($errorMsg, self::$error_date);
+        }
+      }
+      return $this;
+    }
+
+
+    //used to validate a time, make sure to pass date format
+    function time($format = 'H:i:s', $errorMsg = null)
+    {
+      if ($this->isValid && (!empty($this->currentObject->value))) {
+        $this->isValid = (DateTime::createFromFormat($format, $this->currentObject->value)) ? true : false;
+
+        if (!$this->isValid) {
+          $this->setErrorMsg($errorMsg, self::$error_time);
         }
       }
       return $this;

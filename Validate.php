@@ -286,7 +286,7 @@
     function regex($regex, $errorMsg = null)
     {
       if ($this->isValid && (!empty($this->currentObject->value))) {
-        $this->isValid = (filter_var($this->currentObject->value, FILTER_VALIDATE_REGEXP, $regex)) ? true : false;
+        $this->isValid = (filter_var($this->currentObject->value, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "$regex")))) ? true : false;
 
         if (!$this->isValid) {
           $this->setErrorMsg($errorMsg, self::$error_regex);

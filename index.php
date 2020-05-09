@@ -85,6 +85,17 @@
       </div>
     </div>
     <div class="row">
+      <div class="col-12 text-secondary">
+        <hr />
+        <h4>
+          <b>Limitations:</b>
+        </h4>
+        <p>
+          The Alpha & Text validations use ctype_alnum & ctype_alpha which do not allow character spaces; if you want to validate a field with charater spaces use the Regex validation with <code>->regex('/^[a-z\d\-_\s]+$/i')</code>
+        </p>
+      </div>
+    </div>
+    <div class="row">
       <div class="col-12 text-justify text-secondary">
         <hr />
         <h4>
@@ -216,7 +227,7 @@
                   URL: <code>->url('custom error message')</code>
                 </li>
                 <li>
-                  REGEX: <code>->regex(/^hello/', 'custom error message')</code>
+                  REGEX: <code>->regex('/^hello/', 'custom error message')</code>
                 </li>
                 <li>
                   Equal: <code>->equal('FieldNameOfFirstField', 'custom error message')</code>

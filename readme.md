@@ -23,3 +23,5 @@ GPL v2 http://www.gnu.org/licenses/gpl-2.0.txt
 * 1.2:  Addition of Time validation using ->time('H:i:s', 'custom error message'). Default format is 'H:i:s' if none specified first variable to the format you want to validate against.
 
 * 1.3:  Fix to File Type & Size checks to allow for the use of multiple files uploaded on the form.
+
+* 1.4:  Fix to filter_var / FILTER_VALIDATE_REGEXP, regexp should be in an options array, changed code to reflect.

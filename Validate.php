@@ -440,9 +440,24 @@
     //used to check the filesize of an upload - ->fileSize(5000000)
     function fileSize($size, $errorMsg = null)
     {
-      if ($this->isValid && (!empty($this->currentFileObject->fileName))) {
+      //check if the file upload is part of an array (by using 'multiple' in the file upload field)
+      if (is_array($this->currentFileObject->tmpName)) {
+        $i = 0; //set counter to first index of array
+        foreach ($this->currentFileObject->tmpName as $fileName) {
+          //loop through the items in the array
+          if (!empty($fileName)) {
+            //when using a 'multiple' file upload field and submitting no files the array is set and passes the above checks
+            //ensure that the item is not empty before doing anything else.
+            $this->isValid = ($this->currentFileObject->size < $size) ? true : false;
+          }
+          if (!$this->isValid) {
+            $this->setFileErrorMsg($errorMsg, self::$error_fileSize);
+          }
+          $i++;
+        }
+      } else {
+        //the upload is not part of an array and therefore from a single upload field - just do what we do normally
         $this->isValid = ($this->currentFileObject->size < $size) ? true : false;
-
         if (!$this->isValid) {
           $this->setFileErrorMsg($errorMsg, self::$error_fileSize);
         }
@@ -456,9 +471,29 @@
     {
       if ($this->isValid && (!empty($this->currentFileObject->fileName))) {
         $finfo = new finfo();
-        $fileMimeType = $finfo->file($this->currentFileObject->tmpName, FILEINFO_MIME_TYPE);
-        $this->isValid = (in_array($fileMimeType, $allowedTypes)) ? true : false;
+        //check if the file upload is part of an array (by using 'multiple' in the file upload field)
+        if (is_array($this->currentFileObject->tmpName)) {
+          $i = 0; //set counter to first index of array
+          foreach ($this->currentFileObject->tmpName as $fileName) {
+            //loop through the items in the array
+            if (!empty($fileName)) {
+              //when using a 'multiple' file upload field and submitting no files the array is set and passes the above checks
+              //ensure that the item is not empty before doing anything else.
+              $fileMimeType = $finfo->file($fileName, FILEINFO_MIME_TYPE);
+              $this->isValid = (in_array($fileMimeType, $allowedTypes)) ? true : false;
+            }
 
+            if (!$this->isValid) {
+              $this->setFileErrorMsg($errorMsg, self::$error_fileType);
+            }
+            $i++;
+          }
+        } else {
+          //the upload is not part of an array and therefore from a single upload field - just do what we do normally
+          $fileMimeType = $finfo->file($this->currentFileObject->tmpName, FILEINFO_MIME_TYPE);
+          $this->isValid = (in_array($fileMimeType, $allowedTypes)) ? true : false;
+        }
+        //Check if we are valid
         if (!$this->isValid) {
           $this->setFileErrorMsg($errorMsg, self::$error_fileType);
         }

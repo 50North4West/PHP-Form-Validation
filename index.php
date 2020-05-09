@@ -37,7 +37,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-12 text-justify text-secondary">
+      <div class="col-12 text-secondary">
         <hr />
         <h4>
           <b>How to use:</b>
@@ -48,19 +48,22 @@
               Inlcude the validate class using <code>include 'Validate.php';</code>
             </li>
             <li>
-              In your form processing script Instantiate/create the Validate object <code>$valid = new Validate($_POST, $_FILES); </code>
+              In your form processing script Instantiate/create the Validate object <code>$validate = new Validate($_POST, $_FILES); </code>
             </li>
             <li>
               Set each fields checks by chaining together method calls (note: required should ALWAYS follow field name):
               <ul>
                 <li>
-                  <code>$valid->name('user_name')->required()->email();</code>
+                  <code>$validate->name('user_name')->required()->email();</code>
                 </li>
                 <li>
-                  <code>$valid->name('password')->required()->alpha()->minSize(5);</code>
+                  <code>$validate->name('password')->required()->alpha()->minSize(5);</code>
                 </li>
                 <li>
-                  <code>$valid->name('password_confirm')->required()->alpha()->minSize(5)->equal('password');</code>
+                  <code>$validate->name('password_confirm')->required()->alpha()->minSize(5)->equal('password');</code>
+                </li>
+                <li>
+                  <code>$validate->fileName('file_upload')->fileSize(500000, 'custom error message')->fileType(array('image/jpeg', 'image/gif', 'text/xml'), 'custom error message');</code>
                 </li>
               </ul>
             </li>
@@ -70,6 +73,10 @@
             <li>
               You can get the custom or default error message's by using <code>echo $validate->getError('exampleInputNumber');</code>
             </li>
+            <li>
+              For file uploads make sure you use getFileError <code>echo $validate->getFileError('file_upload');</code>
+            </li>
+
             <li>
               You can set or return the form fields' data with <code>value="echo $validate->getValue('exampleInputEmail');"</code>
             </li>

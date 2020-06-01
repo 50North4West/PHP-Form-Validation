@@ -134,7 +134,7 @@
                 $validate->name('exampleInputRequired')->required();
 
                 //when using a file upload field ensure that you use ->filename('fieldName') not ->name('fieldName')
-                $validate->fileName('exampleFormControlFile')->fileSize(500000)->fileType(array('image/jpeg', 'image/gif'));
+                $validate->fileName('exampleFormControlFile')->fileSize(50000000000)->fileType(array('image/jpeg', 'image/gif', 'image/png'));
 
                 //Give a general failed or success message
                 if ($validate->isGroupValid()): ?>
@@ -185,7 +185,7 @@
                 <div class="col-6">
                   <div class="form-group">
                     <label for="exampleFormControlFile">Example file input (jpeg or gif)</label>
-                    <input type="file" class="form-control-file <?php echo ($validate->getFileError('exampleFormControlFile')) ? 'is-invalid' : ''; ?>" name="exampleFormControlFile">
+                    <input type="file" class="form-control-file <?php echo ($validate->getFileError('exampleFormControlFile')) ? 'is-invalid' : ''; ?>" name="exampleFormControlFile[]" multiple>
                     <div class="invalid-feedback"><?php echo $validate->getFileError('exampleFormControlFile'); ?></div>
                   </div>
                 </div>

@@ -331,7 +331,7 @@
     function text($errorMsg = null)
     {
       if ($this->isValid && (!empty($this->currentObject->value))) {
-        $this->isValid = (ctype_alpha($this->currentObject->value)) ? true : false;
+        $this->isValid = (ctype_alnum($this->currentObject->value)) ? true : false;
 
         if (!$this->isValid) {
           $this->setErrorMsg($errorMsg, self::$error_text);
@@ -345,7 +345,7 @@
     function alpha($errorMsg = null)
     {
       if ($this->isValid && (!empty($this->currentObject->value))) {
-        $this->isValid = (ctype_alnum($this->currentObject->value)) ? true : false;
+        $this->isValid = (ctype_alpha($this->currentObject->value)) ? true : false;
 
         if (!$this->isValid) {
           $this->setErrorMsg($errorMsg, self::$error_alpha);
@@ -448,7 +448,7 @@
           if (!empty($fileName)) {
             //when using a 'multiple' file upload field and submitting no files the array is set and passes the above checks
             //ensure that the item is not empty before doing anything else.
-            $this->isValid = ($this->currentFileObject->size < $size) ? true : false;
+            $this->isValid = ($this->currentFileObject->size[0] < $size) ? true : false;
           }
           if (!$this->isValid) {
             $this->setFileErrorMsg($errorMsg, self::$error_fileSize);
